@@ -5,7 +5,7 @@ export default class QueryService {
   private aoeBaseUrl: string;
 
   constructor() {
-    this.aoeBaseUrl = "https://api.ageofempires.com/api/v2/ageii/"; // Todo ajouter cette valeur automatiquuement dans un fichier de config
+    this.aoeBaseUrl = "https://api.ageofempires.com/api/v2/ageii/"; // Todo ajouter cette valeur dans un fichier de config
   }
 
   private handleResponse(response: AxiosResponse, optionalErrMessage?: string) {

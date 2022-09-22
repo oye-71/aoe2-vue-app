@@ -1,8 +1,8 @@
 import { createApp, provide } from "vue";
-import App from "./App.vue";
-import router from "./router";
-import LeaderboardService from "./services/leaderboardService";
-import QueryService from "./services/queryService";
+import App from "@/App.vue";
+import router from "@/router";
+import LeaderboardService from "@/services/leaderboardService";
+import QueryService from "@/services/queryService";
 
 const queryService = new QueryService();
 const leaderboardService = new LeaderboardService();
