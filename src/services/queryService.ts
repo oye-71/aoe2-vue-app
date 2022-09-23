@@ -12,6 +12,7 @@ export default class QueryService {
     if (response.status === 200) {
       return response.data;
     } else {
+      // Todo ajouter une remontée des erreurs
       console.error(optionalErrMessage ?? "Error while processing request");
     }
   }

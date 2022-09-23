@@ -1,13 +1,12 @@
-import { createApp, provide } from "vue";
+import { createApp } from "vue";
 import App from "@/App.vue";
 import router from "@/router";
-import LeaderboardService from "@/services/leaderboardService";
-import QueryService from "@/services/queryService";
+import { provideDependencies } from "@/helpers/dependencyInjectionHelper";
+import BaseLoader from "@/components/BaseLoader.vue";
 
-const queryService = new QueryService();
-const leaderboardService = new LeaderboardService();
+provideDependencies();
 
-provide("queryService", queryService);
-provide("leaderboardService", leaderboardService);
-
-createApp(App).use(router).mount("#app");
+const app = createApp(App);
+app.component("BaseLoader", BaseLoader);
+app.use(router);
+app.mount("#app");

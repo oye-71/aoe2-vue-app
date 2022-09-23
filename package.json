@@ -43,7 +43,7 @@
   },
   "prettier": {
     "endOfLine": "crlf",
-    "printWidth": 130,
+    "printWidth": 120,
     "bracketSameLine": true
   }
 }

@@ -12,5 +12,6 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "@typescript-eslint/no-explicit-any": "off",
     "vue/require-v-for-key": "off",
+    "no-undef": "warn",
   },
 };
