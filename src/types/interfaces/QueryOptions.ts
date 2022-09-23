@@ -1,6 +1,8 @@
+import { MatchType } from "../enums/MatchType";
+
 export interface LeaderboardOptions {
   count: number;
-  matchType: string; // Todo as enum
+  matchType: MatchType;
   page: number;
   region: string; // Todo as enum
   searchPlayer: string;
@@ -16,7 +18,7 @@ export interface GlobalStatsOptions {
 export interface PlayerInfoOptions {
   gameId: number;
   gamertag: string | null;
-  matchType: string; // Todo as enum
+  matchType: MatchType;
   playerNumber: number;
   profileId: string;
 }

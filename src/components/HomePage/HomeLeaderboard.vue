@@ -17,18 +17,20 @@
 import { onMounted, Ref, ref } from "vue";
 import LeaderboardService from "@/services/leaderboardService";
 import { injectDependency } from "@/helpers/dependencyInjectionHelper";
-import { Leaderboard, LeaderboardPlayer } from "@/types/interfaces/Leaderboard";
+import { Leaderboard } from "@/types/interfaces/Leaderboard";
 import router from "@/router";
+import { MatchType } from "@/types/enums/MatchType";
+import { LeaderboardPlayer } from "@/types/interfaces/Player";
 
 const leaderboardService = injectDependency("leaderboardService", LeaderboardService);
 
 const leaderboards: Ref<Leaderboard[]> = ref([]);
 
 onMounted(async () => {
-  const leaderboardRM = await leaderboardService.getTop10RM();
-  const leaderboardRMTeam = await leaderboardService.getTop10RMTeam();
-  const leaderboardEW = await leaderboardService.getTop10EW();
-  const leaderboardEWTeam = await leaderboardService.getTop10EWTeam();
+  const leaderboardRM = await leaderboardService.getTop(10, MatchType.RandomMap1v1);
+  const leaderboardRMTeam = await leaderboardService.getTop(10, MatchType.RandomMapTeam);
+  const leaderboardEW = await leaderboardService.getTop(10, MatchType.EmpireWars1v1);
+  const leaderboardEWTeam = await leaderboardService.getTop(10, MatchType.EmpireWarsTeam);
   leaderboards.value.push(leaderboardRM, leaderboardRMTeam, leaderboardEW, leaderboardEWTeam);
 });
 

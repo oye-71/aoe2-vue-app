@@ -9,8 +9,7 @@
       </div>
       <div>-</div>
       <div>
-        <!-- <a href="mailto:e.dumontet.71@gmail.com">Contact me</a> -->
-        <a href="">Contact me</a>
+        <router-link to="/about">About</router-link>
       </div>
     </div>
   </footer>

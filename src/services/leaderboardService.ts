@@ -1,6 +1,7 @@
 import QueryService from "./queryService";
 import { Leaderboard } from "@/types/interfaces/Leaderboard";
 import { injectDependency } from "@/helpers/dependencyInjectionHelper";
+import { MatchType, MatchTypeFormat } from "@/types/enums/MatchType";
 
 export default class LeaderboardService {
   private _queryService: QueryService;
@@ -9,55 +10,16 @@ export default class LeaderboardService {
     this._queryService = injectDependency("queryService", QueryService);
   }
 
-  async getTop10RM(): Promise<Leaderboard> {
+  async getTop(count = 10, mt: MatchType = MatchType.RandomMap1v1): Promise<Leaderboard> {
     const leaderboard: Leaderboard = await this._queryService.getLeaderboard({
-      count: 10,
-      matchType: "3",
+      count: count,
+      matchType: mt,
       page: 1,
       region: "7",
       searchPlayer: "",
     });
-    leaderboard.items = leaderboard.items.slice(0, 10);
-    leaderboard.name = "Random Match 1v1";
-    return leaderboard;
-  }
-
-  async getTop10RMTeam(): Promise<Leaderboard> {
-    const leaderboard: Leaderboard = await this._queryService.getLeaderboard({
-      count: 10,
-      matchType: "4",
-      page: 1,
-      region: "7",
-      searchPlayer: "",
-    });
-    leaderboard.items = leaderboard.items.slice(0, 10);
-    leaderboard.name = "Random Match Team";
-    return leaderboard;
-  }
-
-  async getTop10EW(): Promise<Leaderboard> {
-    const leaderboard: Leaderboard = await this._queryService.getLeaderboard({
-      count: 10,
-      matchType: "13",
-      page: 1,
-      region: "7",
-      searchPlayer: "",
-    });
-    leaderboard.items = leaderboard.items.slice(0, 10);
-    leaderboard.name = "Empire Wars 1v1";
-    return leaderboard;
-  }
-
-  async getTop10EWTeam(): Promise<Leaderboard> {
-    const leaderboard: Leaderboard = await this._queryService.getLeaderboard({
-      count: 10,
-      matchType: "14",
-      page: 1,
-      region: "7",
-      searchPlayer: "",
-    });
-    leaderboard.items = leaderboard.items.slice(0, 10);
-    leaderboard.name = "Empire Wars Team";
+    leaderboard.items = leaderboard.items.slice(0, count);
+    leaderboard.name = MatchTypeFormat.get(mt);
     return leaderboard;
   }
 }

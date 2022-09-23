@@ -19,8 +19,8 @@ export function provideDependencies(): void {
 /**
  * Returns provided dependency, if non existent instanciates new.
  * @param depName Name of the provided dependency
- * @param type Type of the provided dependency
+ * @param depType Type of the provided dependency
  */
-export function injectDependency<T>(depName: string, type: new () => T): T {
-  return inject(depName, new type());
+export function injectDependency<T>(depName: string, depType: new () => T): T {
+  return inject(depName, new depType());
 }
