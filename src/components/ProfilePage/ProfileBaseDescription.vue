@@ -4,7 +4,7 @@
     <div class="profile-name">{{ info?.user?.userName }}</div>
     <div class="tiles-info tiles tiles-2">
       <div class="tile-card single-line">
-        <span>Games</span>
+        <span>Games (all modes)</span>
         <div>{{ info?.mpStatList?.totalMatches }}</div>
       </div>
       <div class="tile-card single-line">
@@ -15,19 +15,43 @@
     <div class="tiles-ratings tiles">
       <div class="tile-card single-line">
         <span>RM 1v1</span>
-        <div v-if="info?.users?.length && info?.users?.length > 0">{{ info.users[0]?.elo ?? "-" }}</div>
+        <div class="tile-info-two-lines" v-if="info?.users">
+          <div class="tile-info-two-lines-main">{{ info.users[MatchType.RandomMap1v1]?.elo ?? "-" }}</div>
+          <div class="tile-info-two-lines-sec" v-if="canDisplayWinRate(MatchType.RandomMap1v1)">
+            Top {{ info.users[MatchType.RandomMap1v1]?.playerStanding }} %
+          </div>
+          <div class="tile-info-two-lines-sec" v-else-if="info.users[MatchType.RandomMap1v1]?.elo">Not ranked</div>
+        </div>
       </div>
       <div class="tile-card single-line">
         <span>RM Team</span>
-        <div v-if="info?.users?.length && info?.users?.length > 0">{{ info.users[1]?.elo ?? "-" }}</div>
+        <div class="tile-info-two-lines" v-if="info?.users">
+          <div class="tile-info-two-lines-main">{{ info.users[MatchType.RandomMapTeam]?.elo ?? "-" }}</div>
+          <div class="tile-info-two-lines-sec" v-if="canDisplayWinRate(MatchType.RandomMapTeam)">
+            Top {{ info.users[MatchType.RandomMapTeam]?.playerStanding }} %
+          </div>
+          <div class="tile-info-two-lines-sec" v-else-if="info.users[MatchType.RandomMapTeam]?.elo">Not ranked</div>
+        </div>
       </div>
       <div class="tile-card single-line">
         <span>EW 1v1</span>
-        <div v-if="info?.users?.length && info?.users?.length > 0">{{ info.users[2]?.elo ?? "-" }}</div>
+        <div class="tile-info-two-lines" v-if="info?.users">
+          <div class="tile-info-two-lines-main">{{ info.users[MatchType.EmpireWars1v1]?.elo ?? "-" }}</div>
+          <div class="tile-info-two-lines-sec" v-if="canDisplayWinRate(MatchType.EmpireWars1v1)">
+            Top {{ info.users[MatchType.EmpireWars1v1]?.playerStanding }} %
+          </div>
+          <div class="tile-info-two-lines-sec" v-else-if="info.users[MatchType.EmpireWars1v1]?.elo">Not ranked</div>
+        </div>
       </div>
       <div class="tile-card single-line">
         <span>EW Team</span>
-        <div v-if="info?.users?.length && info?.users?.length > 0">{{ info.users[3]?.elo ?? "-" }}</div>
+        <div class="tile-info-two-lines" v-if="info?.users">
+          <div class="tile-info-two-lines-main">{{ info.users[MatchType.EmpireWarsTeam]?.elo ?? "-" }}</div>
+          <div class="tile-info-two-lines-sec" v-if="canDisplayWinRate(MatchType.EmpireWarsTeam)">
+            Top {{ info.users[MatchType.EmpireWarsTeam]?.playerStanding }} %
+          </div>
+          <div class="tile-info-two-lines-sec" v-else-if="info.users[MatchType.EmpireWarsTeam]?.elo">Not ranked</div>
+        </div>
       </div>
     </div>
   </div>
@@ -39,7 +63,8 @@ import { injectDependency } from "@/helpers/dependencyInjectionHelper";
 import ProfileService from "@/services/profileService";
 import { onMounted, Ref, ref, computed } from "vue";
 import { ProfileFullInfo } from "@/types/interfaces/Profile";
-import BaseLoader from "../BaseLoader.vue";
+import BaseLoader from "@/components/BaseLoader.vue";
+import { MatchType } from "@/types/enums/MatchType";
 
 const props = defineProps({
   profileId: {
@@ -64,6 +89,12 @@ onMounted(async () => {
   info.value = await profileService.getPlayerDetails(props.profileId);
   console.log(info.value);
 });
+
+function canDisplayWinRate(mt: MatchType): boolean {
+  if (info?.value?.users) {
+    return !!info.value.users[mt]?.elo && !!info.value.users[mt]?.playerStanding;
+  } else return false;
+}
 </script>
 
 <style lang="scss">

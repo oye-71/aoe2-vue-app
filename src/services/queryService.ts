@@ -3,9 +3,11 @@ import axios, { AxiosResponse } from "axios";
 
 export default class QueryService {
   private aoeBaseUrl: string;
+  private steamBaseUrl: string;
 
   constructor() {
     this.aoeBaseUrl = "https://api.ageofempires.com/api/v2/ageii/"; // Todo ajouter cette valeur dans un fichier de config
+    this.steamBaseUrl = "http://api.steampowered.com/"; // Todo ajouter cette valeur dans un fichier de config
   }
 
   private handleResponse(response: AxiosResponse, optionalErrMessage?: string) {
@@ -24,6 +26,12 @@ export default class QueryService {
 
   async getPlayerData(options: PlayerInfoOptions) {
     const req = await axios.post(this.aoeBaseUrl + "GetMPFull", options);
+    return this.handleResponse(req);
+  }
+
+  // TODO
+  async getPlayerSteamDetails(options: any) {
+    const req = await axios.get(this.steamBaseUrl, options);
     return this.handleResponse(req);
   }
 }

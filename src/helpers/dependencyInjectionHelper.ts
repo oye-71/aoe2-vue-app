@@ -13,7 +13,7 @@ export function provideDependencies(): void {
 
   provide("queryService", queryService);
   provide("leaderboardService", leaderboardService);
-  provide("leaderboardService", profileService);
+  provide("profileService", profileService);
 }
 
 /**

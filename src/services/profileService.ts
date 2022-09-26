@@ -28,9 +28,12 @@ export default class ProfileService {
       const player = await this.getPlayerForMatchType(playerId, keyToEnum(enumValue, MatchType));
       if (!fullplayer) {
         fullplayer = player;
-        fullplayer.users = [player.user];
-      } else {
-        fullplayer.users?.push(player.user);
+        fullplayer.users = {};
+        fullplayer.users[keyToEnum<MatchType, typeof MatchType>(enumValue, MatchType)] = player.user;
+      } else if (fullplayer.users) {
+        fullplayer.users[keyToEnum<MatchType, typeof MatchType>(enumValue, MatchType)] = player.user;
+        fullplayer.mpStatList.totalMatches += player?.mpStatList?.totalMatches ?? 0;
+        fullplayer.mpStatList.totalWins += player?.mpStatList.totalWins ?? 0;
       }
     }
     return fullplayer ?? ({} as ProfileFullInfo);

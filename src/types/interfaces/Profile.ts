@@ -1,3 +1,4 @@
+import { MatchType } from "../enums/MatchType";
 import { ProfileMatch } from "./Match";
 import { ProfilePlayer } from "./Player";
 
@@ -9,7 +10,7 @@ export interface ProfileInfo {
 }
 
 export interface ProfileFullInfo extends ProfileInfo {
-  users?: ProfilePlayer[];
+  users?: PartialRecord<MatchType, ProfilePlayer>;
 }
 
 export interface CareerStats {
