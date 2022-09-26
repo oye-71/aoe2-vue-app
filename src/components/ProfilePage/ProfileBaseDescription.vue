@@ -12,7 +12,7 @@
         <div>{{ Math.round(winrate * 100) / 100 }} %</div>
       </div>
     </div>
-    <div class="tiles-ratings tiles">
+    <div class="tiles-ratings tiles tiles-4">
       <div class="tile-card single-line">
         <span>RM 1v1</span>
         <div class="tile-info-two-lines" v-if="info?.users">

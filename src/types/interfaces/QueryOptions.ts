@@ -1,10 +1,10 @@
 import { MatchType } from "../enums/MatchType";
 
 export interface LeaderboardOptions {
-  count: number;
-  matchType: MatchType;
-  page: number;
-  region: string; // Todo as enum
+  count?: number;
+  matchType?: MatchType;
+  page?: number;
+  region?: string; // Todo as enum
   searchPlayer: string;
 }
 

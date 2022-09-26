@@ -22,4 +22,11 @@ export default class LeaderboardService {
     leaderboard.name = MatchTypeFormat.get(mt);
     return leaderboard;
   }
+
+  async searchForPlayer(search: string): Promise<Leaderboard> {
+    const found: Leaderboard = await this._queryService.getLeaderboard({
+      searchPlayer: search,
+    });
+    return found;
+  }
 }

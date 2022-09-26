@@ -3,12 +3,13 @@ $font-color: #ddc;
 $bg-color: #333;
 $bg-color-adjusted-blue: #333342;
 
-// Bg images
-$bg-img-hot-gradient: linear-gradient(to right, #800, #db3);
-$bg-dark-red: #800;
+$bg-dark-red: #a00;
 $bg-light-red: #a74312;
 $bg-dark-orange: #c27f23;
 $bg-light-orange: #db3;
+
+// Bg images
+$bg-img-hot-gradient: linear-gradient(to right, $bg-dark-red, $bg-light-orange);
 
 // Shadows
 $base-shadow: 1px 1px 3px #111;

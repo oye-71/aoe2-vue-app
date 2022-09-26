@@ -17,10 +17,18 @@
 .tiles {
   display: grid;
   grid-gap: 20px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(1, 1fr);
 
   &.tiles-2 {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  &.tiles-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &.tiles-6 {
+    grid-template-columns: repeat(6, 1fr);
   }
 
   .tile-card {
@@ -39,8 +47,9 @@
         align-items: flex-end;
         justify-content: center;
         gap: 4px;
-        .tile-info-two-lines-main {
-        }
+
+        // .tile-info-two-lines-main {
+        // }
 
         .tile-info-two-lines-sec {
           font-size: 14px;
