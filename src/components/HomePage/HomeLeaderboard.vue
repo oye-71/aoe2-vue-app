@@ -1,4 +1,5 @@
 <template>
+  <div class="home-title">Leaderboards</div>
   <div class="tiles" v-if="leaderboards.length > 0">
     <div class="tile-card" v-for="leaderboard of leaderboards">
       <div v-if="leaderboard">
@@ -10,7 +11,7 @@
       </div>
     </div>
   </div>
-  <BaseLoader v-else />
+  <BaseLoader class="loader-center" v-else />
 </template>
 
 <script setup lang="ts">
@@ -56,5 +57,8 @@ async function onClickPlayer(player: LeaderboardPlayer) {
     background-color: $bg-color;
     cursor: pointer;
   }
+}
+.loader-center {
+  margin: 15vh 0 !important;
 }
 </style>
