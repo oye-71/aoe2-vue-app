@@ -44,6 +44,7 @@
   "prettier": {
     "endOfLine": "crlf",
     "printWidth": 120,
-    "bracketSameLine": true
+    "bracketSameLine": true,
+    "htmlWhitespaceSensitivity": "ignore"
   }
 }

@@ -27,6 +27,10 @@ export default class LeaderboardService {
     const found: Leaderboard = await this._queryService.getLeaderboard({
       searchPlayer: search,
     });
+    // Sort players by ranking
+    if (found) {
+      found.items = found.items.sort((a, b) => b.elo - a.elo);
+    }
     return found;
   }
 }

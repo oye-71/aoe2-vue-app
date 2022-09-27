@@ -6,7 +6,10 @@
         <div v-if="leaderboard">
           <h3 class="player-leader-head">{{ leaderboard.name }}</h3>
           <div class="player-leader" v-for="(leader, index) of leaderboard.items" @click="onClickPlayer(leader)">
-            <span>{{ index + 1 }}. {{ leader.userName }}</span>
+            <span>
+              <span :class="['top-' + (index + 1), { top: index < 3 }]">{{ index + 1 }}.</span>
+              {{ leader.userName }}
+            </span>
             <span>{{ leader.elo }}</span>
           </div>
         </div>
@@ -14,12 +17,27 @@
     </div>
     <BaseLoader class="loader-center" v-else />
   </div>
-  <div>
+  <div class="search-tab">
     <div class="home-title">Search</div>
-    <input placeholder="Enter player name..." v-model="searchContent" />
-    <button @click="onSearchPlayer">Search</button>
-    <div v-if="searchResults">
-      {{ JSON.stringify(searchResults.items) }}
+    <div class="input-w-btn">
+      <input placeholder="Enter player name..." v-model="searchContent" />
+      <button @click="onSearchPlayer">Search</button>
+    </div>
+    <div class="search-results">
+      <div v-if="searchResults">Found {{ searchResults.count }} player{{ searchResults.count > 1 ? "s" : "" }}</div>
+      <div class="tiles" v-if="searchResults">
+        <div class="tile-card" v-for="item in searchResults.items">
+          <div class="player-leader" @click="onClickPlayer(item)">
+            <span>
+              <span :class="['top-' + item.rank, { top: item.rank < 3 }]">{{ item.rank }}.</span>
+              {{ item.userName }}
+            </span>
+            <span>{{ item.elo }}</span>
+          </div>
+        </div>
+      </div>
+      <BaseLoader class="loader-center" v-else-if="isLoadingSearch" />
+      <div v-else>No result.</div>
     </div>
   </div>
 </template>
@@ -32,12 +50,14 @@ import { Leaderboard } from "@/types/interfaces/Leaderboard";
 import router from "@/router";
 import { MatchType } from "@/types/enums/MatchType";
 import { LeaderboardPlayer } from "@/types/interfaces/Player";
+import BaseLoader from "../BaseLoader.vue";
 
 const leaderboardService = injectDependency("leaderboardService", LeaderboardService);
 
 const leaderboards: Ref<Leaderboard[]> = ref([]);
 const searchContent: Ref<string | undefined> = ref();
 const searchResults: Ref<Leaderboard | undefined> = ref();
+const isLoadingSearch: Ref<boolean> = ref(false);
 
 onMounted(async () => {
   const leaderboardRM = await leaderboardService.getTop(5, MatchType.RandomMap1v1);
@@ -52,11 +72,14 @@ async function onClickPlayer(player: LeaderboardPlayer) {
 }
 
 async function onSearchPlayer() {
+  isLoadingSearch.value = true;
+  searchResults.value = undefined;
   if (!searchContent.value) {
     console.error("Error search value empty");
   } else {
     searchResults.value = await leaderboardService.searchForPlayer(searchContent.value);
   }
+  isLoadingSearch.value = false;
 }
 </script>
 
@@ -84,8 +107,37 @@ async function onSearchPlayer() {
     background-color: $bg-color;
     cursor: pointer;
   }
+
+  .top {
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 5px;
+    &.top-1 {
+      color: gold;
+      background-color: transparentize(gold, 0.6);
+    }
+    &.top-2 {
+      color: silver;
+      background-color: transparentize(silver, 0.6);
+    }
+    &.top-3 {
+      color: coral;
+      background-color: transparentize(coral, 0.6);
+    }
+  }
 }
 .loader-center {
-  margin: 15vh 0 !important;
+  margin: 10vh 0 !important;
+}
+.search-tab {
+  display: flex;
+  flex-direction: column;
+
+  .search-results {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+  }
 }
 </style>
