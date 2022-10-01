@@ -19,7 +19,7 @@ export default class LeaderboardService {
       searchPlayer: "",
     });
     leaderboard.items = leaderboard.items.slice(0, count);
-    leaderboard.name = MatchTypeFormat.get(mt);
+    leaderboard.name = MatchTypeFormat.get(mt)?.detailedLabel;
     return leaderboard;
   }
 

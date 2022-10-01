@@ -3,7 +3,7 @@ export interface ProfileMatch {
   profileId: number;
   userName: string | null;
   avatarUrl: string | null;
-  dateTime: Date;
+  dateTime: string;
   matchLength: number;
   playerCount: number;
   victoryResultID: number;

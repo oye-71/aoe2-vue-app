@@ -5,52 +5,31 @@
     <div class="tiles-info tiles tiles-2">
       <div class="tile-card single-line">
         <span>Games (all modes)</span>
-        <div>{{ info?.mpStatList?.totalMatches }}</div>
+        <div class="tile-info-two-lines">
+          <div class="tile-info-two-lines-main">{{ info?.mpStatList?.totalMatches }}</div>
+          <div class="tile-info-two-lines-sec">Winrate {{ Math.round(winrate * 10) / 10 }} %</div>
+        </div>
       </div>
       <div class="tile-card single-line">
-        <span>Winrate</span>
-        <div>{{ Math.round(winrate * 100) / 100 }} %</div>
+        <span>Streak</span>
+        <div class="chips-streak">
+          <div
+            :class="['chip-streak', 'chip-streak-' + match.winLoss.toLowerCase()]"
+            v-for="match of info?.mpMatches.matchList.slice(0, 5)">
+            {{ match.winLoss.slice(0, 1) }}
+          </div>
+        </div>
       </div>
     </div>
     <div class="tiles-ratings tiles tiles-4">
-      <div class="tile-card single-line">
-        <span>RM 1v1</span>
+      <div class="tile-card single-line" v-for="mt of MatchType">
+        <span>{{ MatchTypeFormat.get(mt)?.simpleLabel }}</span>
         <div class="tile-info-two-lines" v-if="info?.users">
-          <div class="tile-info-two-lines-main">{{ info.users[MatchType.RandomMap1v1]?.elo ?? "-" }}</div>
-          <div class="tile-info-two-lines-sec" v-if="canDisplayWinRate(MatchType.RandomMap1v1)">
-            Top {{ info.users[MatchType.RandomMap1v1]?.playerStanding }} %
+          <div class="tile-info-two-lines-main">{{ info.users[mt]?.elo ?? "-" }}</div>
+          <div class="tile-info-two-lines-sec" v-if="canDisplayWinRate(mt)">
+            Top {{ info.users[mt]?.playerStanding }} %
           </div>
-          <div class="tile-info-two-lines-sec" v-else-if="info.users[MatchType.RandomMap1v1]?.elo">Not ranked</div>
-        </div>
-      </div>
-      <div class="tile-card single-line">
-        <span>RM Team</span>
-        <div class="tile-info-two-lines" v-if="info?.users">
-          <div class="tile-info-two-lines-main">{{ info.users[MatchType.RandomMapTeam]?.elo ?? "-" }}</div>
-          <div class="tile-info-two-lines-sec" v-if="canDisplayWinRate(MatchType.RandomMapTeam)">
-            Top {{ info.users[MatchType.RandomMapTeam]?.playerStanding }} %
-          </div>
-          <div class="tile-info-two-lines-sec" v-else-if="info.users[MatchType.RandomMapTeam]?.elo">Not ranked</div>
-        </div>
-      </div>
-      <div class="tile-card single-line">
-        <span>EW 1v1</span>
-        <div class="tile-info-two-lines" v-if="info?.users">
-          <div class="tile-info-two-lines-main">{{ info.users[MatchType.EmpireWars1v1]?.elo ?? "-" }}</div>
-          <div class="tile-info-two-lines-sec" v-if="canDisplayWinRate(MatchType.EmpireWars1v1)">
-            Top {{ info.users[MatchType.EmpireWars1v1]?.playerStanding }} %
-          </div>
-          <div class="tile-info-two-lines-sec" v-else-if="info.users[MatchType.EmpireWars1v1]?.elo">Not ranked</div>
-        </div>
-      </div>
-      <div class="tile-card single-line">
-        <span>EW Team</span>
-        <div class="tile-info-two-lines" v-if="info?.users">
-          <div class="tile-info-two-lines-main">{{ info.users[MatchType.EmpireWarsTeam]?.elo ?? "-" }}</div>
-          <div class="tile-info-two-lines-sec" v-if="canDisplayWinRate(MatchType.EmpireWarsTeam)">
-            Top {{ info.users[MatchType.EmpireWarsTeam]?.playerStanding }} %
-          </div>
-          <div class="tile-info-two-lines-sec" v-else-if="info.users[MatchType.EmpireWarsTeam]?.elo">Not ranked</div>
+          <div class="tile-info-two-lines-sec" v-else-if="info.users[mt]?.elo">Not ranked</div>
         </div>
       </div>
     </div>
@@ -64,7 +43,7 @@ import ProfileService from "@/services/profileService";
 import { onMounted, Ref, ref, computed } from "vue";
 import { ProfileFullInfo } from "@/types/interfaces/Profile";
 import BaseLoader from "@/components/BaseLoader.vue";
-import { MatchType } from "@/types/enums/MatchType";
+import { MatchType, MatchTypeFormat } from "@/types/enums/MatchType";
 
 const props = defineProps({
   profileId: {
@@ -104,7 +83,7 @@ function canDisplayWinRate(mt: MatchType): boolean {
   grid-gap: 20px;
   grid-template:
     "pic name info" 1fr
-    "pic ratings ratings" 1fr / 160px 1fr 1fr;
+    "pic ratings ratings" 1fr / 160px 1fr 2fr;
   .profile-pic {
     width: 160px;
     height: 160px;
@@ -124,6 +103,24 @@ function canDisplayWinRate(mt: MatchType): boolean {
     align-items: center;
     font-size: 24px;
     font-weight: bold;
+  }
+}
+
+.chips-streak {
+  display: flex;
+  gap: 6px;
+  .chip-streak {
+    border-radius: 6px;
+    padding: 5px;
+    width: 26px;
+    text-align: center;
+    color: white;
+    &.chip-streak-win {
+      background-color: $bg-green;
+    }
+    &.chip-streak-loss {
+      background-color: $bg-dark-red;
+    }
   }
 }
 </style>
