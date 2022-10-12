@@ -47,7 +47,7 @@ import { MatchType, MatchTypeFormat } from "@/types/enums/MatchType";
 
 const props = defineProps({
   profileId: {
-    type: Number,
+    type: String,
     required: true,
   },
 });

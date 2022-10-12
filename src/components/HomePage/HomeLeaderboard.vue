@@ -37,7 +37,7 @@
         </div>
       </div>
       <BaseLoader class="loader-center" v-else-if="isLoadingSearch" />
-      <div v-else>No result.</div>
+      <div v-else-if="searchHasBeenDone">No result.</div>
     </div>
   </div>
 </template>
@@ -58,6 +58,7 @@ const leaderboards: Ref<Leaderboard[]> = ref([]);
 const searchContent: Ref<string | undefined> = ref();
 const searchResults: Ref<Leaderboard | undefined> = ref();
 const isLoadingSearch: Ref<boolean> = ref(false);
+const searchHasBeenDone: Ref<boolean> = ref(false);
 
 onMounted(async () => {
   const leaderboardRM = await leaderboardService.getTop(5, MatchType.RandomMap1v1);
@@ -72,11 +73,12 @@ async function onClickPlayer(player: LeaderboardPlayer) {
 }
 
 async function onSearchPlayer() {
-  isLoadingSearch.value = true;
   searchResults.value = undefined;
   if (!searchContent.value) {
     console.error("Error search value empty");
   } else {
+    searchHasBeenDone.value = true;
+    isLoadingSearch.value = true;
     searchResults.value = await leaderboardService.searchForPlayer(searchContent.value);
   }
   isLoadingSearch.value = false;

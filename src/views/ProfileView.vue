@@ -6,7 +6,7 @@
 import ProfileBaseDescription from "@/components/ProfilePage/ProfileBaseDescription.vue";
 const props = defineProps({
   profileId: {
-    type: Number,
+    type: String,
     required: true,
   },
 });

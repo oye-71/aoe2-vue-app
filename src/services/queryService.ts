@@ -1,4 +1,4 @@
-import { GlobalStatsOptions, LeaderboardOptions, PlayerInfoOptions } from "@/types/interfaces/QueryOptions";
+import { MatchListOptions, LeaderboardOptions, PlayerInfoOptions } from "@/types/interfaces/QueryOptions";
 import axios, { AxiosResponse } from "axios";
 
 export default class QueryService {
@@ -26,6 +26,11 @@ export default class QueryService {
 
   async getPlayerData(options: PlayerInfoOptions) {
     const req = await axios.post(this.aoeBaseUrl + "GetMPFull", options);
+    return this.handleResponse(req);
+  }
+
+  async getLatestMatchesData(options: MatchListOptions) {
+    const req = await axios.post(this.aoeBaseUrl + "GetMPMatchList", options);
     return this.handleResponse(req);
   }
 

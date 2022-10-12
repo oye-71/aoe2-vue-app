@@ -1,7 +1,7 @@
 import { injectDependency } from "@/helpers/dependencyInjectionHelper";
 import { keyToEnum } from "@/helpers/enumHelper";
 import { MatchType } from "@/types/enums/MatchType";
-import { ProfileFullInfo, ProfileInfo } from "@/types/interfaces/Profile";
+import { MPMatchList, ProfileFullInfo, ProfileInfo } from "@/types/interfaces/Profile";
 import QueryService from "./queryService";
 
 export default class ProfileService {
@@ -22,10 +22,29 @@ export default class ProfileService {
     return player;
   }
 
-  async getPlayerDetails(playerId: number): Promise<ProfileFullInfo> {
+  async getPlayerMatchesForMatchType(
+    playerId: number,
+    mt: MatchType = MatchType.RandomMap1v1,
+    page = 1,
+    matchCount = 10
+  ): Promise<MPMatchList> {
+    const player = await this._queryService.getLatestMatchesData({
+      matchType: mt,
+      profileId: playerId.toString(),
+      page: page,
+      recordCount: matchCount,
+    });
+    return player;
+  }
+
+  async getPlayerDetails(playerId: number | string): Promise<ProfileFullInfo> {
     let fullplayer: ProfileFullInfo | undefined;
+    if (typeof playerId == "string") {
+      playerId = parseInt(playerId);
+    }
     for (const enumValue in MatchType) {
       const player = await this.getPlayerForMatchType(playerId, keyToEnum(enumValue, MatchType));
+      const pMatches = await this.getPlayerMatchesForMatchType(playerId);
 
       // Merge players profile for all four game modes
       if (!fullplayer) {
@@ -36,14 +55,17 @@ export default class ProfileService {
         fullplayer.users[keyToEnum<MatchType, typeof MatchType>(enumValue, MatchType)] = player.user;
         fullplayer.mpStatList.totalMatches += player?.mpStatList?.totalMatches ?? 0;
         fullplayer.mpStatList.totalWins += player?.mpStatList.totalWins ?? 0;
-        fullplayer.mpMatches.matchList.push(...player?.mpMatches.matchList);
       }
+      fullplayer.mpMatches.matchList.push(...pMatches?.matchList);
+    }
 
+    if (fullplayer) {
       // Sort matches by date descending
       fullplayer.mpMatches.matchList = fullplayer.mpMatches.matchList.sort((mA, mB) => {
         return new Date(mB.dateTime).getDate() - new Date(mA.dateTime).getDate();
       });
     }
+
     return fullplayer ?? ({} as ProfileFullInfo);
   }
 }

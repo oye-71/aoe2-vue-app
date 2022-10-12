@@ -22,3 +22,10 @@ export interface PlayerInfoOptions {
   playerNumber: number;
   profileId: string;
 }
+
+export interface MatchListOptions {
+  profileId: string;
+  page: number;
+  recordCount: number;
+  matchType: MatchType;
+}
