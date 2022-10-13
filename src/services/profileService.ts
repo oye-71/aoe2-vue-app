@@ -43,6 +43,7 @@ export default class ProfileService {
       playerId = parseInt(playerId);
     }
     for (const enumValue in MatchType) {
+      // TODO EDT make these queries synchronous to gain loading time
       const player = await this.getPlayerForMatchType(playerId, keyToEnum(enumValue, MatchType));
       const pMatches = await this.getPlayerMatchesForMatchType(playerId);
 

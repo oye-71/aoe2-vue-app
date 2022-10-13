@@ -61,6 +61,7 @@ const isLoadingSearch: Ref<boolean> = ref(false);
 const searchHasBeenDone: Ref<boolean> = ref(false);
 
 onMounted(async () => {
+  // TODO EDT make these queries synchronous to gain loading time
   const leaderboardRM = await leaderboardService.getTop(5, MatchType.RandomMap1v1);
   const leaderboardRMTeam = await leaderboardService.getTop(5, MatchType.RandomMapTeam);
   const leaderboardEW = await leaderboardService.getTop(5, MatchType.EmpireWars1v1);
