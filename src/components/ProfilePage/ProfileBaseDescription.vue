@@ -35,6 +35,9 @@
     </div>
   </div>
   <BaseLoader v-else />
+  <div v-for="match in info?.mpMatches?.matchList">
+    {{ match.winLoss }} with {{ CivTypeFormat.get(match.civilizationID) }}
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -44,6 +47,7 @@ import { onMounted, Ref, ref, computed } from "vue";
 import { ProfileFullInfo } from "@/types/interfaces/Profile";
 import BaseLoader from "@/components/BaseLoader.vue";
 import { MatchType, MatchTypeFormat } from "@/types/enums/MatchType";
+import { CivTypeFormat } from "@/types/enums/CivType";
 
 const props = defineProps({
   profileId: {

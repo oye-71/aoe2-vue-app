@@ -1,3 +1,5 @@
+import { CivType } from "../enums/CivType";
+
 export interface ProfileMatch {
   gameId: string;
   profileId: number;
@@ -8,7 +10,7 @@ export interface ProfileMatch {
   playerCount: number;
   victoryResultID: number;
   mapType: string;
-  civilizationID: number;
+  civilizationID: CivType;
   civilization: string;
   winLoss: string;
 }
