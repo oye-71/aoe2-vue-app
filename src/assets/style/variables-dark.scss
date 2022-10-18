@@ -15,6 +15,9 @@ $bg-img-hot-gradient: linear-gradient(to right, $bg-dark-red, $bg-light-orange);
 // Shadows
 $base-shadow: 0px 0px 2px #111;
 
+// Transitions
+$transition-delay: 0.2s;
+
 // Remember to add variables in the two variables files !
 html.dark {
     --font-color: #{$font-color};
@@ -29,4 +32,5 @@ html.dark {
     --bg-green: #{$bg-green};
     --bg-img-hot-gradient: #{$bg-img-hot-gradient};
     --base-shadow: #{$base-shadow};
+    --transition-delay: #{$transition-delay};
 }

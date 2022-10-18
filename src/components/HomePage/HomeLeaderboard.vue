@@ -105,6 +105,7 @@ async function onSearchPlayer() {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: background-color var(--transition-delay);
 
   &:hover {
     background-color: var(--bg-color);
