@@ -21,7 +21,7 @@
     <div class="home-title">Search</div>
     <div class="input-w-btn">
       <input placeholder="Enter player name..." v-model="searchContent" />
-      <button @click="onSearchPlayer">Search</button>
+      <button @click="onSearchPlayer"><PhMagnifyingGlass :size="20" /></button>
     </div>
     <div class="search-results">
       <div v-if="searchResults">Found {{ searchResults.count }} player{{ searchResults.count > 1 ? "s" : "" }}</div>
