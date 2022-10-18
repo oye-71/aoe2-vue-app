@@ -1,22 +1,22 @@
 // Colors
-$font-color: #333;
-$bg-color: #fcfcfc;
-$bg-color-adjusted-blue: #fcfcff;
+$font-color: #ddc;
+$bg-color: #333;
+$bg-color-adjusted-blue: #33333c;
 
-$bg-dark-red: lighten(#e00, 15%);
-$bg-light-red: lighten(#a74312, 15%);
-$bg-dark-orange: lighten(#c27f23, 15%);
-$bg-light-orange: lighten(#db3, 15%);
-$bg-green: lighten(#3a3, 15%);
+$bg-dark-red: #a00;
+$bg-light-red: #a74312;
+$bg-dark-orange: #c27f23;
+$bg-light-orange: #db3;
+$bg-green: #3a3;
 
 // Bg images
 $bg-img-hot-gradient: linear-gradient(to right, $bg-dark-red, $bg-light-orange);
 
 // Shadows
-$base-shadow: 0px 0px 2px #888;
+$base-shadow: 0px 0px 2px #111;
 
 // Remember to add variables in the two variables files !
-html.light {
+html.dark {
     --font-color: #{$font-color};
     --bg-color: #{$bg-color};
     --bg-color-adjusted-dark: #{darken($bg-color, 5%)};

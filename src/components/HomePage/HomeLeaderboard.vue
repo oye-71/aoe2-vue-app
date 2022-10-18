@@ -107,7 +107,7 @@ async function onSearchPlayer() {
   align-items: center;
 
   &:hover {
-    background-color: $bg-color;
+    background-color: var(--bg-color);
     cursor: pointer;
   }
 
@@ -116,16 +116,16 @@ async function onSearchPlayer() {
     padding: 2px 6px;
     border-radius: 5px;
     &.top-1 {
-      color: gold;
-      background-color: transparentize(gold, 0.6);
+      color: var(--font-color);
+      background-color: transparentize(gold, 0.33);
     }
     &.top-2 {
-      color: silver;
-      background-color: transparentize(silver, 0.6);
+      color: var(--font-color);
+      background-color: transparentize(silver, 0.33);
     }
     &.top-3 {
-      color: coral;
-      background-color: transparentize(coral, 0.6);
+      color: var(--font-color);
+      background-color: transparentize(coral, 0.33);
     }
   }
 }

@@ -1,18 +1,19 @@
 @import "./variables.scss";
+@import "./variables-dark.scss";
 
 // Buttons
 @mixin btn-style {
-  color: $font-color;
-  background-color: $bg-color;
+  color: var(--font-color);
+  background-color: var(--bg-color);
   border: transparent;
   border-radius: 5px;
-  transition: background-color 0.5s;
+  transition: background-color 0.3s;
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
 
   &:hover {
-    background-color: lighten($bg-color-adjusted-blue, 5%);
+    background-color: var(--bg-color-adjusted-blue-light);
   }
 }
 
@@ -20,15 +21,15 @@
 @mixin input-style {
   padding: 10px 14px;
   font-size: 16px;
-  background-color: $font-color;
-  color: $bg-color;
+  background-color: var(--bg-color-adjusted-blue-light);
+  color: var(--font-color);
 }
 
 // Input button group
 .input-w-btn {
   display: grid;
   grid-template-columns: 3fr 1fr;
-  box-shadow: $base-shadow;
+  box-shadow: var(--base-shadow);
   border-radius: 8px;
   input {
     @include input-style;
@@ -38,7 +39,7 @@
   button {
     @include btn-style;
     border-radius: 0 8px 8px 0;
-    background-color: darken($bg-color, 5%);
+    background-color: var(--bg-color-adjusted-dark);
   }
 }
 
@@ -63,8 +64,8 @@
   .tile-card {
     border-radius: 10px;
     padding: 12px;
-    background-color: darken($bg-color, 5%);
-    box-shadow: $base-shadow;
+    background-color: var(--bg-color-adjusted-dark);
+    box-shadow: var(--base-shadow);
     &.single-line {
       display: flex;
       justify-content: space-between;

@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./variables-dark.scss";
 @import "./genericComponents.scss";
 
 // General style
@@ -6,8 +7,8 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  color: $font-color;
-  background-color: $bg-color;
+  color: var(--font-color);
+  background-color: var(--bg-color);
   font-family: sans-serif;
 
   #app {
@@ -27,24 +28,26 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+  transition: color 0.3s;
 
-  &::after {
-    display: block;
-    content: "";
-    transform: scaleX(0);
-    border-bottom: 2px solid transparent;
-    transition: transform 0.5s;
-    transform-origin: 0% 50%;
-  }
+  // &::after {
+  //   display: block;
+  //   content: "";
+  //   transform: scaleX(0);
+  //   border-bottom: 2px solid transparent;
+  //   transition: transform 0.5s;
+  //   transform-origin: 0% 50%;
+  // }
 
   &:hover {
     cursor: pointer;
+    color: var(--bg-dark-orange);
   }
 
-  &:hover::after {
-    transform: scaleX(1);
-    border-bottom: 2px solid $font-color;
-  }
+  // &:hover::after {
+  //   transform: scaleX(1);
+  //   border-bottom: 2px solid var(--font-color);
+  // }
 }
 
 .foot {
@@ -52,14 +55,14 @@ a {
   position: absolute;
   bottom: 0;
   width: 100vw;
-  background-image: $bg-img-hot-gradient;
+  background-image: var(--bg-img-hot-gradient);
   .foot-container {
     max-height: 50px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 15px 5px;
-    background: $bg-color-adjusted-blue;
+    background: var(--bg-color-adjusted-blue);
     div {
       margin: 0 2px;
     }
@@ -68,14 +71,14 @@ a {
 
 .nav {
   padding-bottom: 2px;
-  background-image: $bg-img-hot-gradient;
+  background-image: var(--bg-img-hot-gradient);
 
   .nav-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 5px 15px;
-    background: $bg-color-adjusted-blue;
+    background: var(--bg-color-adjusted-blue);
     .nav-options {
       list-style: none;
     }

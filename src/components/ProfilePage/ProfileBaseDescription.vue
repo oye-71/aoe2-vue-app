@@ -89,7 +89,7 @@ function canDisplayWinRate(mt: MatchType): boolean {
     height: 160px;
     border-radius: 10px;
     grid-area: pic;
-    box-shadow: $base-shadow;
+    box-shadow: var(--base-shadow);
   }
   .tiles-info {
     grid-area: info;
@@ -116,10 +116,10 @@ function canDisplayWinRate(mt: MatchType): boolean {
     text-align: center;
     color: white;
     &.chip-streak-win {
-      background-color: $bg-green;
+      background-color: var(--bg-green);
     }
     &.chip-streak-loss {
-      background-color: $bg-dark-red;
+      background-color: var(--bg-dark-red);
     }
   }
 }

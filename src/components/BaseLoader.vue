@@ -45,22 +45,22 @@ const props = defineProps({
 .lds-ellipsis div:nth-child(1) {
   left: 8px;
   animation: lds-ellipsis1 0.6s infinite;
-  background: $bg-dark-red;
+  background: var(--bg-dark-red);
 }
 .lds-ellipsis div:nth-child(2) {
   left: 8px;
   animation: lds-ellipsis2 0.6s infinite;
-  background: $bg-light-red;
+  background: var(--bg-light-red);
 }
 .lds-ellipsis div:nth-child(3) {
   left: 24px;
   animation: lds-ellipsis2 0.6s infinite;
-  background: $bg-dark-orange;
+  background: var(--bg-dark-orange);
 }
 .lds-ellipsis div:nth-child(4) {
   left: 40px;
   animation: lds-ellipsis3 0.6s infinite;
-  background: $bg-light-orange;
+  background: var(--bg-light-orange);
 }
 @keyframes lds-ellipsis1 {
   0% {
