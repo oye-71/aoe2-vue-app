@@ -1,43 +1,45 @@
 <template>
-  <div>
-    <div class="home-title">Leaderboards</div>
-    <div class="tiles tiles-2" v-if="leaderboards.length > 0">
-      <div class="tile-card" v-for="leaderboard of leaderboards">
-        <div v-if="leaderboard">
-          <h3 class="player-leader-head">{{ leaderboard.name }}</h3>
-          <div class="player-leader" v-for="(leader, index) of leaderboard.items" @click="onClickPlayer(leader)">
-            <span>
-              <span :class="['top-' + (index + 1), { top: index < 3 }]">{{ index + 1 }}.</span>
-              {{ leader.userName }}
-            </span>
-            <span>{{ leader.elo }}</span>
+  <div class="home">
+    <div>
+      <div class="home-title">Leaderboards</div>
+      <div class="tiles tiles-2" v-if="leaderboards.length > 0">
+        <div class="tile-card" v-for="leaderboard of leaderboards">
+          <div v-if="leaderboard">
+            <h3 class="player-leader-head">{{ leaderboard.name }}</h3>
+            <div class="player-leader" v-for="(leader, index) of leaderboard.items" @click="onClickPlayer(leader)">
+              <span>
+                <span :class="'top top-' + (index + 1)">{{ index + 1 }}.</span>
+                {{ leader.userName }}
+              </span>
+              <span>{{ leader.elo }}</span>
+            </div>
           </div>
         </div>
       </div>
+      <BaseLoader class="loader-center" v-else />
     </div>
-    <BaseLoader class="loader-center" v-else />
-  </div>
-  <div class="search-tab">
-    <div class="home-title">Search</div>
-    <div class="input-w-btn">
-      <input placeholder="Enter player name..." v-model="searchContent" />
-      <button @click="onSearchPlayer"><PhMagnifyingGlass :size="20" /></button>
-    </div>
-    <div class="search-results">
-      <div v-if="searchResults">Found {{ searchResults.count }} player{{ searchResults.count > 1 ? "s" : "" }}</div>
-      <div class="tiles" v-if="searchResults">
-        <div class="tile-card" v-for="item in searchResults.items">
-          <div class="player-leader" @click="onClickPlayer(item)">
-            <span>
-              <span :class="['top-' + item.rank, { top: item.rank < 3 }]">{{ item.rank }}.</span>
-              {{ item.userName }}
-            </span>
-            <span>{{ item.elo }}</span>
+    <div class="search-tab">
+      <div class="home-title">Search</div>
+      <div class="input-w-btn">
+        <input placeholder="Enter player name..." v-model="searchContent" />
+        <button @click="onSearchPlayer"><PhMagnifyingGlass :size="20" /></button>
+      </div>
+      <div class="search-results">
+        <div v-if="searchResults">Found {{ searchResults.count }} player{{ searchResults.count > 1 ? "s" : "" }}</div>
+        <div class="tiles" v-if="searchResults">
+          <div class="tile-card" v-for="item in searchResults.items">
+            <div class="player-leader" @click="onClickPlayer(item)">
+              <span>
+                <span :class="['top top-' + item.rank, { top: item.rank < 3 }]">{{ item.rank }}.</span>
+                {{ item.userName }}
+              </span>
+              <span>{{ item.elo }}</span>
+            </div>
           </div>
         </div>
+        <BaseLoader class="loader-center" v-else-if="isLoadingSearch" />
+        <div v-else-if="searchHasBeenDone">No result.</div>
       </div>
-      <BaseLoader class="loader-center" v-else-if="isLoadingSearch" />
-      <div v-else-if="searchHasBeenDone">No result.</div>
     </div>
   </div>
 </template>
@@ -91,6 +93,11 @@ async function onSearchPlayer() {
   display: grid;
   gap: 30px;
   grid-template-columns: calc(70% - 15px) calc(30% - 15px);
+
+  @media (max-width: 1079px) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 }
 
 .player-leader-head {

@@ -88,6 +88,14 @@ function canDisplayWinRate(mt: MatchType): boolean {
   grid-template:
     "pic name info" 1fr
     "pic ratings ratings" 1fr / 160px 1fr 2fr;
+
+  @media (max-width: 1079px) {
+    grid-template:
+      "pic name"
+      "info info"
+      "ratings ratings";
+  }
+
   .profile-pic {
     width: 160px;
     height: 160px;
@@ -107,6 +115,8 @@ function canDisplayWinRate(mt: MatchType): boolean {
     align-items: center;
     font-size: 24px;
     font-weight: bold;
+    word-wrap: break-word;
+    word-break: break-all;
   }
 }
 

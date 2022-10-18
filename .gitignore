@@ -21,6 +21,3 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-
-# TODO Temporary and needs to be deleted : test webpack.config.ts
-webpack.config.ts
