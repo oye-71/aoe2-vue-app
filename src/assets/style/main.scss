@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 @import "./variables.scss";
 @import "./variables-dark.scss";
 @import "./genericComponents.scss";
@@ -9,7 +10,7 @@ body {
   min-height: 100%;
   color: var(--font-color);
   background-color: var(--bg-color);
-  font-family: sans-serif;
+  font-family: "Nunito", sans-serif;
 
   #app {
     position: relative;

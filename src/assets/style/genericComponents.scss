@@ -19,7 +19,8 @@
 
 // Inputs
 @mixin input-style {
-  padding: 10px 14px;
+  padding: 8px 12px;
+  font-family: inherit;
   font-size: 16px;
   background-color: var(--bg-color-adjusted-blue-light);
   color: var(--font-color);
